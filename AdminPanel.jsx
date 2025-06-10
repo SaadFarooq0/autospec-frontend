@@ -1,9 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
-import { Card, CardContent } from '@/components/ui/card';
+import './App.css';
 
 const API_URL = 'https://ingenious-friendship-production.up.railway.app';
 
@@ -75,42 +72,32 @@ export default function AdminPanel() {
   }, []);
 
   return (
-    <div className="p-6 space-y-4 max-w-4xl mx-auto">
-      <h1 className="text-2xl font-bold">Admin Panel: Manage Car Specs</h1>
-      <Input
+    <div className="container">
+      <h1>Admin Panel: Manage Car Specs</h1>
+      <input
         placeholder="Model name (e.g., Toyota Camry XLE)"
         value={model}
         onChange={(e) => setModel(e.target.value)}
       />
-      <Textarea
+      <textarea
         rows={10}
         placeholder="Specs as JSON"
         value={specs}
         onChange={(e) => setSpecs(e.target.value)}
       />
-      <div className="flex space-x-4">
-        <Button onClick={handleSubmit}>{editingId ? 'Update' : 'Add'} Car</Button>
-        <input type="file" id="pdfupload" accept="application/pdf" className="hidden" />
-        <Button variant="outline" onClick={() => document.getElementById('pdfupload').click()}>
-          Upload PDF
-        </Button>
-        <Button onClick={handleAutoExtract}>Auto Extract Specs</Button>
+      <div className="actions">
+        <button onClick={handleSubmit}>{editingId ? 'Update' : 'Add'} Car</button>
+        <input type="file" id="pdfupload" accept="application/pdf" />
+        <button onClick={handleAutoExtract}>Auto Extract Specs</button>
       </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-6">
+      <div className="car-list">
         {cars.map((car) => (
-          <Card key={car.id}>
-            <CardContent className="p-4 space-y-2">
-              <h2 className="font-semibold text-lg">{car.model}</h2>
-              <pre className="bg-gray-100 p-2 rounded text-sm overflow-auto">
-                {JSON.stringify(car.specs, null, 2)}
-              </pre>
-              <div className="flex gap-2">
-                <Button variant="outline" onClick={() => handleEdit(car)}>Edit</Button>
-                <Button variant="destructive" onClick={() => handleDelete(car.id)}>Delete</Button>
-              </div>
-            </CardContent>
-          </Card>
+          <div key={car.id} className="car-card">
+            <h2>{car.model}</h2>
+            <pre>{JSON.stringify(car.specs, null, 2)}</pre>
+            <button onClick={() => handleEdit(car)}>Edit</button>
+            <button onClick={() => handleDelete(car.id)}>Delete</button>
+          </div>
         ))}
       </div>
     </div>

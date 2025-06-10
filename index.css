@@ -1,0 +1,27 @@
+
+body {
+  font-family: Arial, sans-serif;
+  padding: 2rem;
+  background: #f8f9fa;
+}
+.container {
+  max-width: 800px;
+  margin: auto;
+}
+textarea, input {
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+}
+.actions {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+.car-card {
+  background: white;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
