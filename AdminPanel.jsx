@@ -1,6 +1,5 @@
 
 import { useState, useEffect } from 'react';
-import './App.css';
 
 const API_URL = 'https://ingenious-friendship-production.up.railway.app';
 
@@ -72,28 +71,32 @@ export default function AdminPanel() {
   }, []);
 
   return (
-    <div className="container">
-      <h1>Admin Panel: Manage Car Specs</h1>
+    <div style={{ padding: 20, maxWidth: 800, margin: 'auto' }}>
+      <h1>Admin Panel</h1>
       <input
-        placeholder="Model name (e.g., Toyota Camry XLE)"
+        placeholder='Model'
         value={model}
         onChange={(e) => setModel(e.target.value)}
+        style={{ width: '100%', marginBottom: 10 }}
       />
       <textarea
-        rows={10}
-        placeholder="Specs as JSON"
+        placeholder='Specs (JSON format)'
         value={specs}
+        rows={10}
         onChange={(e) => setSpecs(e.target.value)}
+        style={{ width: '100%', marginBottom: 10 }}
       />
-      <div className="actions">
-        <button onClick={handleSubmit}>{editingId ? 'Update' : 'Add'} Car</button>
-        <input type="file" id="pdfupload" accept="application/pdf" />
+      <div>
+        <input type='file' id='pdfupload' accept='application/pdf' />
         <button onClick={handleAutoExtract}>Auto Extract Specs</button>
       </div>
-      <div className="car-list">
-        {cars.map((car) => (
-          <div key={car.id} className="car-card">
-            <h2>{car.model}</h2>
+      <button onClick={handleSubmit}>
+        {editingId ? 'Update' : 'Add'} Car
+      </button>
+      <div style={{ marginTop: 20 }}>
+        {cars.map(car => (
+          <div key={car.id} style={{ border: '1px solid #ccc', padding: 10, marginBottom: 10 }}>
+            <h3>{car.model}</h3>
             <pre>{JSON.stringify(car.specs, null, 2)}</pre>
             <button onClick={() => handleEdit(car)}>Edit</button>
             <button onClick={() => handleDelete(car.id)}>Delete</button>
